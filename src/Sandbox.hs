@@ -38,9 +38,30 @@ main = do
 
         putStrLn "\nQ#6:"
 
+        print (X :: Square)
+--        print (:t X) -- X :: Square
+        print (O :: Square)
+--        print (:t O) -- O :: Square
+        print (X == O) -- False
+
         putStrLn "\nQ#7:"
+        print XWon
+        print OWon
+        print Tie
+        print Prg
+        print (XWon == XWon)
+        print (XWon == OWon)
+        print (Tie  == Prg )
 
         putStrLn "\nQ#8:"
+        print (X :: Player)
+        print (O :: Player)
+        print ([X,O,X,O] :: Row)    -- = [Square]
+        print ([X,O,X,O] :: Line)   -- = [Square]
+        print ([[X,O,X,O]
+               ,[O,X,O,X]
+               ,[X,O,X,O]] ::Board)  -- = [Row]
+        print ((10,6) :: Move)       -- = (Int, Int)
 
         putStrLn "\nQ#9:"
 
