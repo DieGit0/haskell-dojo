@@ -56,14 +56,22 @@ type Board  = [Row]
 type Move   = (Int, Int)
 
 -- Q#09
+getFirstPlayer :: Bool -> Square
+getFirstPlayer bool = if bool 
+                       then X 
+                       else O
 
-getFirstPlayer = undefined
-
-getFirstPlayer_ = undefined
+getFirstPlayer_ :: Bool -> Square
+getFirstPlayer_ bool | bool      = X
+                     | otherwise = O 
 
 -- Q#10
-
-showGameState = undefined
+showGameState :: GameState -> String
+showGameState gst = case gst of 
+                    XWon -> "X Won the Game" 
+                    OWon -> "O won the game"
+                    Tie  -> "Game is a tie"
+                    Prg  -> "The game is in progress"
 
 -- Q#11
 

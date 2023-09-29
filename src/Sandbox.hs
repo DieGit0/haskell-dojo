@@ -19,7 +19,6 @@ main = do
         print $ d || not d  -- True
 
         putStrLn "\nQ#3:"
-
         let f = convertRowIndex
         print $ f 'A'      -- 0
         print $ f 'a'      -- 0
@@ -56,16 +55,24 @@ main = do
         putStrLn "\nQ#8:"
         print (X :: Player)
         print (O :: Player)
-        print ([X,O,X,O] :: Row)    -- = [Square]
-        print ([X,O,X,O] :: Line)   -- = [Square]
+        print ( [X,O,X,O] :: Row)    -- = [Square]
+        print ( [X,O,X,O] :: Line)   -- = [Square]
         print ([[X,O,X,O]
                ,[O,X,O,X]
                ,[X,O,X,O]] ::Board)  -- = [Row]
         print ((10,6) :: Move)       -- = (Int, Int)
 
         putStrLn "\nQ#9:"
+        print $ getFirstPlayer True   -- X
+        print $ getFirstPlayer False  -- O
+        print $ getFirstPlayer_ True  -- X
+        print $ getFirstPlayer_ False -- O
 
         putStrLn "\nQ#10:"
+        putStrLn $ showGameState XWon
+        putStrLn $ showGameState OWon
+        putStrLn $ showGameState Tie
+        putStrLn $ showGameState Prg
 
         putStrLn "\nQ#11:"
 
