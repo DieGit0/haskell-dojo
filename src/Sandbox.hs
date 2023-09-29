@@ -69,13 +69,19 @@ main = do
         print $ getFirstPlayer_ False -- O
 
         putStrLn "\nQ#10:"
-        putStrLn $ showGameState XWon
-        putStrLn $ showGameState OWon
-        putStrLn $ showGameState Tie
-        putStrLn $ showGameState Prg
+        putStrLn $ showGameState XWon -- X Won the Game
+        putStrLn $ showGameState OWon -- O won the game
+        putStrLn $ showGameState Tie  -- Game is a tie
+        putStrLn $ showGameState Prg  -- The game is in progress
 
         putStrLn "\nQ#11:"
+        print $ switchPlayer X -- O
+        print $ switchPlayer O -- X
+        print $ switchPlayer Empty -- Empty
 
         putStrLn "\nQ#12:"
+        print $ showSquare X     -- "X"
+        print $ showSquare O     -- "O"
+        print $ showSquare Empty -- "_"
 
 
