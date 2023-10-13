@@ -24,20 +24,20 @@ _SEP_ :: String
 _SEP_ = "_|_"
 
 -- Q#06
-data Square = X | O | Empty -- deriving (Show, Eq)
+data Square = X | O | E -- deriving (Show, Eq)
 
 instance Show Square where
-  show X     = "X"
-  show O     = "O"
-  show Empty = "Empty"
+  show X = "X"
+  show O = "O"
+  show E = "E"
 
 instance Eq Square where
-  (==) X X         = True
-  (==) O O         = True
-  (==) Empty Empty = True
-  (==) Empty _     = False
-  (==) O     _     = False
-  (==) X     _     = False
+  (==) X X = True
+  (==) O O = True
+  (==) E E = True
+  (==) E _ = False
+  (==) O _ = False
+  (==) X _ = False
 
 -- Q#07
 
@@ -77,10 +77,10 @@ showGameState gst = case gst of
 switchPlayer :: Player -> Player
 switchPlayer X = O
 switchPlayer O = X
-switchPlayer _ = Empty
+switchPlayer _ = E
 
 -- Q#12
 showSquare :: Square -> String
 showSquare X     = "X" 
 showSquare O     = "O" 
-showSquare Empty = "_" 
+showSquare E = "_" 
