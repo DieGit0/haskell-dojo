@@ -29,7 +29,9 @@ executable haskell-dojo
       , HM.A7
       , HM.A8
       , HM.Provided
-      , Sandbox
+      -- , Sandbox -- commented - Diego 11 Out 23
+      ,Sandbox_A1
+      ,Sandbox_A2
     build-depends:
         base
       , containers
