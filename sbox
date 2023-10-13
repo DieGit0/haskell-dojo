@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-cabal exec ghci src/Sandbox.hs
+#cabal  repl all
+cabal exec ghci src/Sandbox_A$1.hs
