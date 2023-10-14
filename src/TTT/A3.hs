@@ -1,22 +1,45 @@
 module TTT.A3 where
 
-import Data.List (transpose)
 import TTT.A1
 import TTT.A2
 
 -- Q#01
 
-showInts = undefined
+showInts :: [Int] -> [String]
+showInts []     = []                   -- avaliation direction:  ("1" :    ("2" :    ("3" : []))) Left <- Right
+showInts (x:xs) = show x : showInts xs -- In Heap's memory => show x1 : show x2 : show x3 : []
 
-_HEADER_ = undefined
+-- Just to my own
+showIntsTR :: [Int] -> [String]
+showIntsTR [] = []
+showIntsTR xs = tr xs []
+    where tr []     acc = reverse acc
+          tr (x:xs) acc = tr xs $! (show x : acc)
+
+_HEADER_ :: String
+_HEADER_ =  ' ' : formatLine (showIntsTR _RANGE_)
 
 -- Q#02
 
-showSquares = undefined
+showSquares :: [Square] -> [String]
+showSquares  []    = []
+showSquares (x:xs) = showSquare x : showSquares xs
+
+-- Just to my own
+showSquaresTR :: [Square] -> [String]
+showSquaresTR [] = []
+showSquaresTR xs = tr xs []
+    where tr []     acc = reverse acc
+          tr (x:xs) acc = tr xs $! (show x : acc)
 
 -- Q#03
 
-formatRows = undefined
+formatRows :: Board -> String
+formatRows  []    = []
+formatRows (r:rs) = formatLine (showSquares r) <> formatRows rs
+
+formatRows' rs = foldr ((<>) . formatLine . showSquares) [] rs
+
 
 -- Q#04
 
