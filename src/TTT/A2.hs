@@ -30,7 +30,7 @@ _EMPTY_ROW_ :: [Square]
 _EMPTY_ROW_ = replicate _SIZE_ E -- Empty
 
 _EMPTY_BOARD_ :: Board
-_EMPTY_BOARD_ = replicate 3 _EMPTY_ROW_  
+_EMPTY_BOARD_ = replicate _SIZE_ _EMPTY_ROW_  
 
 -- Q#05
 isTied :: Board -> Bool
