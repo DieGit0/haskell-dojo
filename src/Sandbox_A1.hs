@@ -4,8 +4,7 @@ import TTT.A1
 
 main = do
         putStrLn "Q#1:"
-        print _SIZE_ -- 3
-        --print (:t _SIZE_)
+        print _SIZE_  -- 3
         let s = _SIZE_
         print $ s + 1 -- 4
         print $ s - 1 -- 2
