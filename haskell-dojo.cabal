@@ -32,6 +32,7 @@ executable haskell-dojo
       -- , Sandbox -- commented - Diego 11 Out 23
       ,Sandbox_A1
       ,Sandbox_A2
+      ,Sandbox_A3
     build-depends:
         base
       , containers
