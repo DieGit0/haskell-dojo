@@ -1,8 +1,9 @@
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
+
 module TTT.A3 where
 
 import TTT.A1
-import TTT.A2
+import TTT.A2    (replaceSquareInRow, formatLine, isMoveInBounds, _RANGE_, _EMPTY_BOARD_, _TIED_BOARD_)
 import Data.List (transpose)
 
 -- Q#01
@@ -68,14 +69,15 @@ isColEmpty3 rs ix | ix >= 0 && ix < 3 = (!!) rs ix == E
                   | otherwise = False
 
 -- Recursivity -> Your beatiful is TRUE :) haha
--- O (ix)
-isColEmpty :: Row -> Int -> Bool
+-- O (col)
+type Col = Int
+isColEmpty :: Row -> Col -> Bool
 isColEmpty [] _  = False
-isColEmpty xs ix = f xs 0
-    where f []     _                     = False
-          f (x:xs) i | x == E && i == ix = True
-                     | i < ix            = f xs (i+1)
-                     |otherwise          = False
+isColEmpty row col = f row 0
+    where f []     _                      = False
+          f (r:rs) c | r == E && c == col = True
+                     | c < col            = f rs (c+1)
+                     | otherwise          = False
 
 -- Q#05
 
@@ -154,7 +156,8 @@ b = [[X,O,E],
      [O,E,X],
      [E,X,X]]
 
-getDiag1''' b = [ b !! l !! c | l <-[0..2], c <- [0..2], l==c ] 
+-- Using List Comprehention the same result
+getDiag1''' b = [ b !! l !! c | l <-[0..2], c <- [0..2],  l==c ] 
 
 getDiag2''' b = [ b !! l !! c | l <-[0,1,2], c <-[2,1,0], 2==l+c ]  
 
@@ -166,17 +169,70 @@ getAllLines b = concat [b
                        ]
 
 -- Q#07
+-- Patter Matching & List Constructs
+putSquare :: Player -> Board -> Move -> Board
+putSquare _ [     ]   _    = []
+putSquare p [x,y,z] (0, c) = replaceSquareInRow p c x : [y,z] 
+putSquare p [x,y,z] (1, c) = x : replaceSquareInRow p c y : [z]
+putSquare p [x,y,z] (2, c) = [x,y] <>  [replaceSquareInRow p c z]
+putSquare _    _    (_, _) = [[]] -- Just in case the board has less than 3 rows
 
-putSquare = undefined
+--Recursion
+putSquare' :: Player -> Board -> Move -> Board
+putSquare' _  []  _     = []
+putSquare' p  board (l, c)  
+    | l < 0 || l > 2       = board
+    | otherwise            = next p board (0,c)
+ where next p [] (0,0)     = [] 
+       next p (r:b) (i,c) 
+        | i /= l           = r : next p b (i+1,c) 
+        | i == l           = replaceSquareInRow p c r : b 
 
 -- Q#08
 
-prependRowIndices = undefined
+str = [". Learn Haskell", ". Wait for more industry adoption", ". Profit?"]
+-- ZipWith
+prependRowIndices :: [String] -> [String]
+prependRowIndices [] = []
+prependRowIndices str = zipWith (\a s -> a : s) ['A'..] str
+
+-- Recursion
+prependRowIndices' :: [String] -> [String]
+prependRowIndices' [] = []
+prependRowIndices' xs = next ('A', xs)
+    where next (_, [])   = []
+          next (c, s:ss) = [c : s] <> next (succ c, ss)
 
 -- Q#09
 
-isWinningLine_ = undefined
+isWinningLine :: Player -> Line -> Bool
+isWinningLine _ []   = False
+isWinningLine p line = all ( == p) line
+
+isWinningLine' :: Player -> Line -> Bool
+isWinningLine' _ []   = False
+isWinningLine' p line = next False line []
+    where next _ []     acc          = and acc
+          next b (l:ls) acc | p == l = next b ls (not b : acc)
+                            | otherwise = False
 
 -- Q#10
 
-isValidMove = undefined
+-- Patter Matching & Guards
+isValidMove :: Board -> Move -> Bool
+isValidMove []            _     = False
+isValidMove [l1,l2,l3] mv@(0,c) | isMoveInBounds mv = isColEmpty l1 c | otherwise = False
+isValidMove [l1,l2,l3] mv@(1,c) | isMoveInBounds mv = isColEmpty l2 c | otherwise = False
+isValidMove [l1,l2,l3] mv@(2,c) | isMoveInBounds mv = isColEmpty l3 c | otherwise = False
+isValidMove [l1,l2,l3] mv@(_,_) = False
+
+-- Recursion
+isValidMove' :: Board -> Move -> Bool
+isValidMove' [] _       = False
+isValidMove' bo mv 
+    | isMoveInBounds mv = matches bo mv 0
+    | otherwise = False
+ where matches (b:bs) (l,c) i | l == i    = isColEmpty b c
+                              | i <  l    = matches bs (l,c) (i+1)
+                              | otherwise = False
+
