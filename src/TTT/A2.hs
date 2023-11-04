@@ -56,7 +56,8 @@ formatLine str = let lineBoard = intercalate _SEP_ str
 
 -- Q#08
 isMoveInBounds :: Move -> Bool
-isMoveInBounds (r,c) = (r >= 0 && c >= 0) && (r <= _SIZE_ && c <= _SIZE_)
+isMoveInBounds (r,c) = (r >= 0 && c >= 0) && (r < _SIZE_ && c < _SIZE_)
+
 
 -- Q#09
 stringToMove :: String -> Move
