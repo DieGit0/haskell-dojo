@@ -3,7 +3,7 @@ module TTT.A1 where
 import Data.Char (toUpper)
 
 -- Q#01
-_SIZE_  :: Int
+_SIZE_ :: Int
 _SIZE_ = 3
 
 -- Q#02
@@ -81,6 +81,6 @@ switchPlayer _ = E
 
 -- Q#12
 showSquare :: Square -> String
-showSquare X     = "X" 
-showSquare O     = "O" 
+showSquare X = "X" 
+showSquare O = "O" 
 showSquare E = "_" 
