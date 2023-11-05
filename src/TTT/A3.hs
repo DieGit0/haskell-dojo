@@ -37,9 +37,9 @@ showSquaresTR xs = tr xs []
 
 -- Q#03
 
-formatRows :: Board -> String
+formatRows :: Board -> [String]
 formatRows  []    = []
-formatRows (r:rs) = formatLine (showSquares r) <> formatRows rs
+formatRows (r:rs) =  formatLine (showSquares r) : formatRows rs
 
 formatRows' rs = foldr ((<>) . formatLine . showSquares) [] rs
 
@@ -157,12 +157,12 @@ b = [[X,O,E],
      [E,X,X]]
 
 -- Using List Comprehention the same result
-getDiag1''' b = [ b !! l !! c | l <-[0..2], c <- [0..2],  l==c ] 
+getDiag1''' b = [ b !! l !! c | l <-[0..2], c <- [0..2],  l==c ]
 
-getDiag2''' b = [ b !! l !! c | l <-[0,1,2], c <-[2,1,0], 2==l+c ]  
+getDiag2''' b = [ b !! l !! c | l <-[0,1,2], c <-[2,1,0], 2==l+c ]
 
 getAllLines :: Board -> [Line]
-getAllLines b = concat [b 
+getAllLines b = concat [b
                        ,transpose b
                        ,[getDiag1 b]
                        ,[getDiag2 b]
@@ -172,7 +172,7 @@ getAllLines b = concat [b
 -- Patter Matching & List Constructs
 putSquare :: Player -> Board -> Move -> Board
 putSquare _ [     ]   _    = []
-putSquare p [x,y,z] (0, c) = replaceSquareInRow p c x : [y,z] 
+putSquare p [x,y,z] (0, c) = replaceSquareInRow p c x : [y,z]
 putSquare p [x,y,z] (1, c) = x : replaceSquareInRow p c y : [z]
 putSquare p [x,y,z] (2, c) = [x,y] <>  [replaceSquareInRow p c z]
 putSquare _    _    (_, _) = [[]] -- Just in case the board has less than 3 rows
@@ -180,13 +180,13 @@ putSquare _    _    (_, _) = [[]] -- Just in case the board has less than 3 rows
 --Recursion
 putSquare' :: Player -> Board -> Move -> Board
 putSquare' _  []  _     = []
-putSquare' p  board (l, c)  
+putSquare' p  board (l, c)
     | l < 0 || l > 2       = board
     | otherwise            = next p board (0,c)
- where next p [] (0,0)     = [] 
-       next p (r:b) (i,c) 
-        | i /= l           = r : next p b (i+1,c) 
-        | i == l           = replaceSquareInRow p c r : b 
+ where next p [] (0,0)     = []
+       next p (r:b) (i,c)
+        | i /= l           = r : next p b (i+1,c)
+        | i == l           = replaceSquareInRow p c r : b
 
 -- Q#08
 
@@ -229,7 +229,7 @@ isValidMove [l1,l2,l3] mv@(_,_) = False
 -- Recursion
 isValidMove' :: Board -> Move -> Bool
 isValidMove' [] _       = False
-isValidMove' bo mv 
+isValidMove' bo mv
     | isMoveInBounds mv = matches bo mv 0
     | otherwise = False
  where matches (b:bs) (l,c) i | l == i    = isColEmpty b c
