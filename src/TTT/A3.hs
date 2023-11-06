@@ -171,7 +171,7 @@ getAllLines b = concat [b
 -- Q#07
 -- Patter Matching & List Constructs
 putSquare :: Player -> Board -> Move -> Board
-putSquare _ [     ]   _    = []
+putSquare _ [     ]  _     = []
 putSquare p [x,y,z] (0, c) = replaceSquareInRow p c x : [y,z]
 putSquare p [x,y,z] (1, c) = x : replaceSquareInRow p c y : [z]
 putSquare p [x,y,z] (2, c) = [x,y] <>  [replaceSquareInRow p c z]
@@ -193,8 +193,8 @@ putSquare' p  board (l, c)
 str = [". Learn Haskell", ". Wait for more industry adoption", ". Profit?"]
 -- ZipWith
 prependRowIndices :: [String] -> [String]
-prependRowIndices [] = []
-prependRowIndices str = zipWith (\a s -> a : s) ['A'..] str
+prependRowIndices []  = []
+prependRowIndices str = zipWith (\c s -> c : s) ['A'..] str
 
 -- Recursion
 prependRowIndices' :: [String] -> [String]
