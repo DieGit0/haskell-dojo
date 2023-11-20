@@ -30,11 +30,12 @@ executable haskell-dojo
       , HM.A8
       , HM.Provided
       -- , Sandbox -- commented - Diego 11 Out 23
-      ,Sandbox_A1
-      ,Sandbox_A2
-      ,Sandbox_A3
-      ,Sandbox_A4
-      ,Sandbox_A5
+      , Sandbox_A1
+      , Sandbox_A2
+      , Sandbox_A3
+      , Sandbox_A4
+      , Sandbox_A5
+      , Sandbox_A6
     build-depends:
         base
       , containers
