@@ -68,10 +68,10 @@ getFirstPlayer_ bool | bool      = X
 -- Q#10
 showGameState :: GameState -> String
 showGameState gst = case gst of 
-                    XWon -> "X Won the Game" 
-                    OWon -> "O won the game"
-                    Tie  -> "Game is a tie"
-                    Prg  -> "The game is in progress"
+                    XWon -> "[ ** X Won the Game ** ]" 
+                    OWon -> "[ ** O won the game ** ]"
+                    Tie  -> "[ Game is a tie ]"
+                    Prg  -> "[ The game is in progress.. ]"
 
 -- Q#11
 switchPlayer :: Player -> Player
