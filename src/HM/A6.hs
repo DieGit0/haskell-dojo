@@ -18,12 +18,14 @@ type Dictionary = [String]
 
 -- Q#02
 --a custom [variant] type called GameException...
-data GameException =   InvalidChars
-                     | InvalidLength
-                     | NotInDict
-                     | InvalidMove
-                     | RepeatMove
-                     | GameOver
+data GameException = 
+      InvalidChars
+    | InvalidLength
+    | NotInDict
+    | InvalidMove
+    | RepeatMove
+    | GameOver
+    deriving Show
 
 -- Q#03
 
