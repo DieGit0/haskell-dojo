@@ -1,6 +1,7 @@
 module Sandbox_A6 where
 
 import HM.A6
+import HM.A7 -- Note: to Display a new custom GameException msg
 
 main = do
     putStrLn "Q#1:"
@@ -11,6 +12,7 @@ main = do
     print (["Word1", "Word2", "Word3"] :: Dictionary)
     newLIne
     putStrLn "Q#2:"
+    -- Note: ** New Instance of GameException to be displayed in Q#07 instance Show GameException **
     print InvalidChars
     print InvalidLength
     print NotInDict
@@ -41,8 +43,8 @@ main = do
     print $ revealLetters 'X' "ABC"   "xxx"
     newLIne
     putStrLn "Q#6:"
-    print $ updateChances 'A' "ABACAXI"
-    print $ updateChances 'Z' "ABACAXI"
+    print $ updateChances 'A' "ABACAXI" 7
+    print $ updateChances 'Z' "ABACAXI" 7
     newLIne
     putStrLn "Q#7:"
     setSecret
