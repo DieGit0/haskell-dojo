@@ -27,13 +27,13 @@ main = do
     print $ lengthInRange ['A'..'U'] -- len 21 False
     newLIne
     putStrLn "Q#4:"
-    print $ invalidMove 'A'
-    print $ invalidMove 'Z'
-    print $ invalidMove 'Ψ'
-    print $ invalidMove 'Σ'
-    print $ invalidMove 'ث'
-    print $ invalidMove 'ش'
-    print $ map invalidMove ['0'.. '9']
+    print $ invalidMove 'A' -- False
+    print $ invalidMove 'Z' -- False
+    print $ invalidMove 'Ψ' -- False
+    print $ invalidMove 'Σ' -- False
+    print $ invalidMove 'ث' -- False
+    print $ invalidMove 'ش' -- False
+    print $ map invalidMove ['0'.. '9'] -- True
     newLIne
     putStrLn "Q#5:"
     print $ revealLetters 'A' "ABC"   "xxx"
