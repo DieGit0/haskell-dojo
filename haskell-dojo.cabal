@@ -36,6 +36,7 @@ executable haskell-dojo
       , Sandbox_A4
       , Sandbox_A5
       , Sandbox_A6
+      , Sandbox_A7
     build-depends:
         base
       , containers
