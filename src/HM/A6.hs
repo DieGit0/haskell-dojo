@@ -25,7 +25,7 @@ data GameException =
     | InvalidMove
     | RepeatMove
     | GameOver
-    deriving Show
+    -- deriving Show
 
 -- Q#03
 
@@ -37,47 +37,34 @@ lengthInRange s = let (min,max) = _LENGTH_
 -- Q#04
 
 invalidMove :: Move -> Bool
-invalidMove = isAlpha
+invalidMove = not . isAlpha
 
--- Q#05
+-- Q#05 
 
 revealLetters :: Move -> Secret -> Guess -> Guess
-revealLetters _ [] _  = []
-revealLetters _ _ []  = []
-revealLetters m s g | not vMove  = "Invalid Move [A-Z]"
-                    | not vRange = "Invalid Range [3-7]" 
-                    | otherwise  =  
-                      let sLen   = length s
-                          guess  = replicate sLen '_'
-                      in
-                      showLetter guess 
-    where showLetter g 
-                    | move       =  zipWith (\a b -> if a == m then a else b) s g
-                    | otherwise  =  g
-          move            = m `elem` s
-          (vMove, vRange) = (invalidMove m , lengthInRange s)
-
--- revealLetters :: Move -> Secret -> Guess -> Guess
--- revealLetters m s g = let sLen  = length s
---                           guess = replicate sLen '_'
---                       in
---                       showLetter guess 
---     where showLetter g | move      =  zipWith (\a b -> if a == m then a else b) s g
---                        | otherwise =  g
---           move         = m `elem` s
+revealLetters _ [] _ = []
+revealLetters _ _ [] = []
+revealLetters m s g | validMove   = "Invalid Move [A-Z]"
+                    | not inRange = "Invalid Range [3-20]" 
+                    | otherwise   =  showLetter
+    where showLetter  
+                    | moveMatch  = zipWith (\a b -> if a == m then a else b) s g
+                    | otherwise  = g
+          moveMatch              = m `elem` s
+          (validMove, inRange) = (invalidMove m , lengthInRange s)
 
 -- Q#06
 
-updateChances :: Move -> Secret -> Chances 
-updateChances m s = let exist = m `elem` s
-                    in
-                    if exist 
-                    then _CHANCES_
-                    else _CHANCES_ -1
+updateChances :: Move -> Secret -> Chances -> Chances
+updateChances m s c = let exist = m `elem` s
+                      in
+                      if exist 
+                      then c
+                      else c-1
 
-updateChances' :: Move -> Secret -> Chances 
-updateChances' m s | exist     = _CHANCES_
-                   | otherwise = _CHANCES_ -1
+updateChances' :: Move -> Secret -> Chances -> Chances
+updateChances' m s c | exist     = c
+                     | otherwise = c-1
         where exist = m `elem` s
 
 -- Q#07
