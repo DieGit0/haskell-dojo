@@ -29,7 +29,7 @@ makeGame :: Secret -> Game
 makeGame s = let sec = map toUpper s
                  gss = initGuess   s 
              in  Game sec gss [] _CHANCES_
-             
+
 -- ** Note: Before implementation of: instance Show Game && showGameHelper function **
 -- ===============================================================================
 --  makeGame "ARARA"
@@ -151,10 +151,10 @@ validateWithDict dict sec = case validateNoDict sec of
 processTurn :: Move -> Game -> Either GameException Game
 processTurn mv gm | invalidMove  mv    = Left InvalidMove
                   | repeatedMove mv gm = Left RepeatMove
-                  | not hasChanges     = Left GameOver 
+                  | not hasChances     = Left GameOver 
                   | otherwise          = Right newGame
   where newGame    = updateGame mv gm
-        hasChanges = chances newGame > 0
+        hasChances = chances newGame > 0
 
 
 
